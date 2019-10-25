@@ -24,96 +24,121 @@
 
 import Cocoa
 
+protocol CollectionViewExtendedDelegate {
+    func collectionView(_ collectionView: CollectionView, menuForItemsAt indexPaths: Set<IndexPath>)
+}
+
 class CollectionView: NSCollectionView {
-  
-  var editing: NSCollectionViewItem?
-  
-  var isKey: Bool = false
-  var selectionColor: NSColor {
-    if isKey {
-      return NSColor.controlAccentColor
-    }
-    return NSColor.unemphasizedSelectedContentBackgroundColor
-  }
-  
-  @objc func resignKeyWindow() {
-    isKey = false
-    updateSelectionHighlights()
-  }
-  
-  @objc func becomeKeyWindow() {
-    isKey = true
-    updateSelectionHighlights()
-  }
-  
-  override func mouseDown(with event: NSEvent) {
-    if editing != nil {
-      // if we are already editing something, we need to cancel the operation
-      editing?.textField?.window?.makeFirstResponder(nil)
-      self.endEditing()
-    }
     
-    if event.clickCount == 2 {
-      let local = convert(event.locationInWindow, from: nil)
-      guard
-        let index = indexPathForItem(at: local),
-        let item = item(at: index)
-        else { return }
-      
-      editing = item
-      
-      guard let tf = item.textField else { return }
-      let p = tf.convert(event.locationInWindow, from: nil)
-      if tf.isMousePoint(p, in: tf.bounds) {
-        // edit!
-        if let editor = tf.window?.fieldEditor(true, for: tf) {
-          editor.delegate = self
-          tf.isEditable = true
-          tf.edit(withFrame: tf.bounds, editor: editor, delegate: self, event: event)
+    var editing: NSCollectionViewItem?
+    
+    var extendedDelegate: CollectionViewExtendedDelegate?
+    
+    override var delegate: NSCollectionViewDelegate? {
+        didSet {
+            guard let del = delegate as? CollectionViewExtendedDelegate else {
+                return
+            }
+            
+            extendedDelegate = del
         }
-        return
-      }
     }
-    super.mouseDown(with: event)
-  }
-  
-  override func cancelOperation(_ sender: Any?) {
-    endEditing()
-  }
-  
-  func endEditing() {
-    guard let editing = editing else { return }
-    self.editing = nil
     
-    guard let tf = editing.textField else { return }
-    tf.isEditable = false
-    if let editor = tf.window?.fieldEditor(true, for: tf) {
-      editor.delegate = nil
-      tf.endEditing(editor)
+    var isKey: Bool = false
+    var selectionColor: NSColor {
+        if isKey {
+            return NSColor.controlAccentColor
+        }
+        return NSColor.unemphasizedSelectedContentBackgroundColor
     }
-  }
-  
-  func updateSelectionHighlights() {
-    CATransaction.begin()
-    defer { CATransaction.commit() }
-    CATransaction.setDisableActions(true)
     
-    let color = selectionColor.cgColor
-    for index in selectionIndexPaths {
-      let v = item(at: index) as? CollectionViewItem
-      v?.selectionLayer?.borderColor = color
+    @objc func resignKeyWindow() {
+        isKey = false
+        updateSelectionHighlights()
     }
-  }
-  
-  //  override func deselectItems(at indexPaths: Set<IndexPath>) {
-  //    super.deselectItems(at: indexPaths)
-  //    let viewController = delegate as! ViewController
-  //    viewController.highlightItems(selected: false, atIndexPaths: indexPaths)
-  //  }
+    
+    @objc func becomeKeyWindow() {
+        isKey = true
+        updateSelectionHighlights()
+    }
+    
+    override func menu(for event: NSEvent) -> NSMenu? {
+        let mouseLocationInView = convert(event.locationInWindow, from: nil)
+        
+        guard
+            let index = indexPathForItem(at: mouseLocationInView),
+            let ed    = extendedDelegate
+            else { return nil }
+
+        let itemIsSelected = item(at: index)!.isSelected
+        
+        let indexPaths = itemIsSelected ? selectionIndexPaths : Set([index])
+        
+        return super.menu(for: event)
+    }
+    
+    override func mouseDown(with event: NSEvent) {
+        if editing != nil {
+            // if we are already editing something, we need to cancel the operation
+            editing?.textField?.window?.makeFirstResponder(nil)
+            self.endEditing()
+        }
+        
+        if event.clickCount == 2 {
+            let local = convert(event.locationInWindow, from: nil)
+            guard
+                let index = indexPathForItem(at: local),
+                let item = item(at: index)
+                else { return }
+            
+            editing = item
+            
+            guard let tf = item.textField else { return }
+            let p = tf.convert(event.locationInWindow, from: nil)
+            if tf.isMousePoint(p, in: tf.bounds) {
+                // edit!
+                if let editor = tf.window?.fieldEditor(true, for: tf) {
+                    editor.delegate = self
+                    tf.isEditable = true
+                    tf.edit(withFrame: tf.bounds, editor: editor, delegate: self, event: event)
+                }
+                return
+            }
+        }
+        super.mouseDown(with: event)
+    }
+    
+    override func cancelOperation(_ sender: Any?) {
+        endEditing()
+    }
+    
+    func endEditing() {
+        guard let editing = editing else { return }
+        self.editing = nil
+        
+        guard let tf = editing.textField else { return }
+        tf.isEditable = false
+        if let editor = tf.window?.fieldEditor(true, for: tf) {
+            editor.delegate = nil
+            tf.endEditing(editor)
+        }
+    }
+    
+    func updateSelectionHighlights() {
+        CATransaction.begin()
+        defer { CATransaction.commit() }
+        CATransaction.setDisableActions(true)
+        
+        let color = selectionColor.cgColor
+        for index in selectionIndexPaths {
+            let v = item(at: index) as? CollectionViewItem
+            v?.selectionLayer?.borderColor = color
+        }
+    }
 }
 
 extension CollectionView: NSTextDelegate {
-  func textDidEndEditing(_ notification: Notification) {
-    NSLog("textDidEndEditing")
-  }
+    func textDidEndEditing(_ notification: Notification) {
+        NSLog("textDidEndEditing")
+    }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -149,9 +149,9 @@
 		0557CB1B22A781B60037175F /* OEShadersModel+OpenEmu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0557CB1A22A781B60037175F /* OEShadersModel+OpenEmu.swift */; };
 		05644A4823331EA90033576F /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05644A4723331EA90033576F /* AboutViewController.swift */; };
 		0586AB22231A1E9A00BCDA6B /* OEGameLayerNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0586AB21231A1E9A00BCDA6B /* OEGameLayerNotificationView.swift */; };
-		05B753A023330EB60063BD73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05B753A223330EB60063BD73 /* Main.storyboard */; };
 		05B2E05E23693A7600644C58 /* OELogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B2E05D23693A7500644C58 /* OELogging.m */; };
 		05B2E05F23693A7600644C58 /* OELogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B2E05D23693A7500644C58 /* OELogging.m */; };
+		05B753A023330EB60063BD73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05B753A223330EB60063BD73 /* Main.storyboard */; };
 		05E4400B22991527009E6D27 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 05E4400A22991527009E6D27 /* Shaders */; };
 		05F5BAE9228662C5004D713C /* OpenEmuShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05F5BAE8228662C5004D713C /* OpenEmuShaders.framework */; };
 		05F5BAED228662D3004D713C /* OpenEmuShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05F5BAE8228662C5004D713C /* OpenEmuShaders.framework */; };
@@ -1481,9 +1481,9 @@
 		05644A1A2333130B0033576F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		05644A4723331EA90033576F /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		0586AB21231A1E9A00BCDA6B /* OEGameLayerNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OEGameLayerNotificationView.swift; sourceTree = "<group>"; };
-		05B753A123330EB60063BD73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		05B2E05923693A7500644C58 /* OELogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OELogging.h; sourceTree = "<group>"; };
 		05B2E05D23693A7500644C58 /* OELogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OELogging.m; sourceTree = "<group>"; };
+		05B753A123330EB60063BD73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		05E4400A22991527009E6D27 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
 		05F5BAE8228662C5004D713C /* OpenEmuShaders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OpenEmuShaders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		05F6381222E3C08100FC49FF /* OEShaderParamValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OEShaderParamValue.h; sourceTree = "<group>"; };
@@ -3144,9 +3144,9 @@
 				054276522361318E009B6615 /* HeaderView.swift */,
 				0542765423613199009B6615 /* HeaderView.xib */,
 				0542765823613221009B6615 /* ImageFile.swift */,
-				0542765A2361355E009B6615 /* StateViewController.swift */,
 				0542765C2361357F009B6615 /* ScreenshotsViewController.swift */,
 				0542766023614954009B6615 /* ScreenshotsViewController.xib */,
+				0542765A2361355E009B6615 /* StateViewController.swift */,
 			);
 			name = "Media View";
 			sourceTree = "<group>";
@@ -3722,8 +3722,6 @@
 				94A4E995179FAB9F00AD8C7D /* OEMediaViewController.m */,
 				5A6C157B1DC96C3700839986 /* OEMediaViewController+TouchBar.swift */,
 				8363A43C193CC1BF00F18425 /* OECollectionViewItemProtocol.h */,
-				8363A43D193CD12C00F18425 /* OEGridMediaGroupItemCell.h */,
-				8363A43E193CD12C00F18425 /* OEGridMediaGroupItemCell.m */,
 				05C756962335B5200022F933 /* Media View */,
 				53439AAE13B92CFE005C0CC8 /* Grid View */,
 				53439AAD13B92CFC005C0CC8 /* List View */,
@@ -6412,7 +6410,7 @@
 						ProvisioningStyle = Manual;
 					};
 					1BEF2A9311682A530090F72B = {
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					277CBA3219DE54200059A2C1 = {
 						ProvisioningStyle = Manual;
@@ -10639,7 +10637,7 @@
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = macosx;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG_PRINT DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG_PRINT DEBUG USE_NEW";
 			};
 			name = Debug;
 		};
