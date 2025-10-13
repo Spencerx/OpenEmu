@@ -25,9 +25,6 @@
 [submodule "SNES9x"]
 	path = SNES9x
 	url = ../../OpenEmu/SNES9x-Core.git
-[submodule "picodrive"]
-	path = picodrive
-	url = ../../OpenEmu/picodrive.git
 [submodule "VecXGL"]
 	path = VecXGL
 	url = ../../OpenEmu/VecXGL-Core.git
@@ -88,3 +85,6 @@
 [submodule "DeSmuME"]
 	path = DeSmuME
 	url = ../../OpenEmu/DeSmuME-Core.git
+[submodule "picodrive"]
+	path = picodrive
+	url = ../../OpenEmu/picodrive.git
