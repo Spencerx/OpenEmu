@@ -32,8 +32,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "malloc_error_break"
                   moduleName = "libsystem_malloc.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  offsetFromSymbolStart = "0">
+                  usesParentBreakpointCondition = "Yes">
                </Location>
             </Locations>
          </BreakpointContent>
