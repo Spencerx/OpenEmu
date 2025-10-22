@@ -380,6 +380,8 @@ final class PrefControlsController: NSViewController {
         outTransition.path = pathTransitionOut
         outTransition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         outTransition.duration = 0.35
+        outTransition.fillMode = .forwards
+        outTransition.isRemovedOnCompletion = false
         
         // Setup animation that transitions the new controller image in
         let pathTransitionIn = CGMutablePath()
@@ -395,6 +397,8 @@ final class PrefControlsController: NSViewController {
         
         CATransaction.begin()
         CATransaction.setCompletionBlock {
+            self.controllerContainerView.setFrameOrigin(NSPoint(x: 0, y: 450))
+            
             if self.controllerView != nil {
                 self.controllerContainerView.replaceSubview(self.controllerView, with: newControllerView)
             } else {
@@ -408,7 +412,6 @@ final class PrefControlsController: NSViewController {
             }
         }
         
-        controllerContainerView.setFrameOrigin(NSPoint(x: 0, y: 450))
         if !reduceMotion {
             imageViewLayer?.add(outTransition, forKey: "animatePosition")
         }
